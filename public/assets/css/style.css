@@ -1,0 +1,63 @@
+
+body{
+    background: url('../images/burger_back.jpg') no-repeat center center fixed;
+    -webkit-background-size: auto;
+    -moz-background-size: auto;
+    background-size: auto;
+    -o-background-size: auto;
+  }
+  
+  .container{
+    background: url('../images/seed.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: auto;
+    background-size: auto;
+    -o-background-size: auto; 
+    /* background-color: #e6af5d; */
+  }
+  
+  #header{
+    text-align:center; 
+    margin:auto;
+  }
+  
+  h1{
+    font-family: 'Yanone Kaffeesatz', sans-serif; 
+    font-size: 60px;
+    line-height:100px
+  }
+  
+  h2{
+    font-family: 'Yanone Kaffeesatz', sans-serif; 
+    font-size:40px;
+    line-height:60px;
+    text-align:center;
+  }
+  
+  li {
+      padding: 5px;
+      margin: 5px;
+      background: #ffd867;
+      font-size:20px;
+      line-height:30px;
+    }
+    
+    .label {
+      font-weight: bold;
+    }
+    
+    .form-group {
+      margin-bottom: 5px;
+    }
+    
+  .addburger, .checkreviews{
+    background-color: #A1C935;
+    margin-bottom: 8%;
+    text-align:center;
+    border-radius:10%
+  }
+  
+  .buttonadd,.reviews{
+    margin-bottom:1%;
+    font-weight:bold;
+  }
