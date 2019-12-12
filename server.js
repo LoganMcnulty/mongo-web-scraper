@@ -42,7 +42,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 var router = express.Router();
 
 app.get("/", function(req, res) {
-  res.render("index",{title:"Packers Mongo Scraper"});
+  res.render("index",{title:"Packers News Mongo Scraper"});
 });
 
 // Routes
