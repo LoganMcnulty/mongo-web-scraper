@@ -39,10 +39,10 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/GoPackGo"
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-var router = express.Router();
+require('./routes/htmlroutes')(app);
 
 app.get("/", function(req, res) {
-  res.render("index",{title:"Packers News Mongo Scraper"});
+  res.render("index",{title:"Packers News Scraper"});
 });
 
 // Routes
