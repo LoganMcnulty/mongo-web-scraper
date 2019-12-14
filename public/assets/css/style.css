@@ -2,6 +2,7 @@
 .navbar-custom { 
     font-size: 20px;
     background-color: #203731; 
+    font-family: 'Fira Mono', monospace;
 } 
 
 #dangerButtons{
@@ -42,4 +43,44 @@
   top: 30%;
   width: 100%;
   text-align: center;
+  z-index: 4;
+  font-size: 80px;
+  color: #FFB612;
+  font-family: 'Fira Mono', monospace;
+
+}
+#container-background{
+  background: #203731;
+  padding: 2%;
+}
+.container-custom {
+  width:80%;
+}
+
+.card .card-header {
+  background-color: #FFB612;
+  position: relative;
+  font-family: 'Fira Mono', monospace;
+  color: #203731;
+}
+
+a {
+ color:#203731;
+ font-weight:bold
+}
+
+
+@media screen and (max-width: 500px) {
+  /* The body's bg color will be #333 */
+  .jumbotron .caption {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    z-index: 4;
+    font-size: 80px;
+    color: #FFB612;
+    font-family: 'Fira Mono', monospace;
+  
+  }
 }

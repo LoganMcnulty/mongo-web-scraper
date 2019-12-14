@@ -39,6 +39,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/GoPackGo"
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+// require html routes
 require('./routes/htmlroutes')(app);
 
 app.get("/", function(req, res) {
