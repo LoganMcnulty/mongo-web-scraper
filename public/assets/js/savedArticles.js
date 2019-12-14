@@ -1,23 +1,27 @@
-// Grab the articles as a json
 $.ajax({
   method: "GET",
   url: "/articles/"
 }).then(function(data) {
-  for (i=0; i<20; i++){
-    var articleDiv = $("<div>").addClass("card card-custom").attr("data-_id",data[i]._id).attr("style","margin-bottom:1%")
-    var cardHead = $("<div>").addClass("card-header")
-    var cardH3 = $("<h3>")
-    var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
-    var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","saveArticle").text(`Save ✔`).attr("style","margin-left:2%")
-    cardH3.append(articleOne).append(articleTwo)
-    cardHead.append(cardH3)
-    var cardBody = $("<div>").addClass("card-body")
-    var cardImage = $("<img>").addClass("img-fluid").attr("src", data[i].image).attr("alt", "Responsive Image").attr("style","display: block; width:10em; float:left; border-radius:20%")
-    var cardBodyText = $("<h5>").attr("style","float:left; padding:1%; width:80%").text(data[i].summary)
-    cardBody.append(cardImage).append(cardBodyText)
-    articleDiv.append(cardHead).append(cardBody)
-    $("#articleContainer").append(articleDiv)
-  } 
+  console.log(data);
+    for (i=0; i<20; i++){
+      var articleDiv = $("<div>").addClass("card card-custom").attr("data-_id",data[i]._id).attr("style","margin-bottom:1%")
+      var cardHead = $("<div>").addClass("card-header")
+      var cardH3 = $("<h3>")
+      var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
+      var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%")
+      cardH3.append(articleOne).append(articleTwo)
+      cardHead.append(cardH3)
+      var cardBody = $("<div>").addClass("card-body")
+      var cardImage = $("<img>").addClass("img-fluid").attr("src", data[i].image).attr("alt", "Responsive Image").attr("style","display: block; width:10em; float:left; border-radius:20%")
+      var cardBodyText = $("<h5>").attr("style","float:left; padding:1%; width:80%").text(data[i].summary)
+      cardBody.append(cardImage).append(cardBodyText)
+      articleDiv.append(cardHead).append(cardBody)
+      $("#articleContainer").append(articleDiv)
+  }
+
+
+  // })
+    
     // // The title of the article
     // $("#notes").append("<h2>" + data.title + "</h2>");
     // // An input to enter a new title
@@ -35,7 +39,7 @@ $.ajax({
     //   $("#titleinput").val(data.note.title);
     //   // Place the body of the note in the body textarea
     //   $("#bodyinput").val(data.note.body);
-  })
+})
 
 
   // Whenever someone clicks a p tag

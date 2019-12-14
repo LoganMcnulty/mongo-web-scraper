@@ -73,6 +73,9 @@ app.get("/scrape", function(req, res) {
 
         result.image = articleImage
 
+        var articleSummary = $(this).find("div.d3-o-media-object__summary").find("p").text()
+        result.summary = articleSummary
+
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
             .then(function(dbArticle) {
@@ -86,7 +89,7 @@ app.get("/scrape", function(req, res) {
     });
 
     // Send a message to the client
-    res.send("Scrape Complete");
+    res.send("Pack Scrape Complete");
   });
 });
 

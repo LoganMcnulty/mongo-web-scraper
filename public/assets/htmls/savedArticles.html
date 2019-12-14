@@ -26,7 +26,7 @@
 			  <span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
-			  <ul class="navbar-nav">
+			  <ul class="navbar-nav navbar-right">
 				<li class="nav-item active">
 				  <a class="nav-link" href="/" style="color:white">Home |</a>
 				</li>
@@ -34,7 +34,7 @@
 				  <a class="nav-link" href="/savedArticles" style="color:white">Saved Articles</a>
 				</li>
 				<li class="nav-item">
-					<a class="btn btn-danger" id="dangerButtons">Clear Saved Articles!
+					<a class="btn btn-danger" id="dangerButtonClear">Clear Saved Articles!
 						<i class="fas fa-exclamation-triangle"></i>
 					</a>
 				</li>
@@ -49,27 +49,30 @@
 		</div>
 		  
 	<div id="container-background">
-		<div class="container-fluid article-container container-custom">
+		<div class="container-fluid article-container container-custom" id="articleContainer">
 
-			<div data-_id="5df5389dbe0dbf0015a3f8b4" class="card card-custom">
+			<!-- <div data-_id="5df5389dbe0dbf0015a3f8b4" class="card card-custom">
 			<div class="card-header">
 				<h3>
 				<a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/12/12/style/carnegie-hero-fund.html">What Makes an American Hero? (Or a Canadian One?)</a>
 				<a class="btn btn-success delete" id="deleteSavedArticle">Delete ✗</a>
 				</h3>
 			</div>
-			<div class="card-body">For over 100 years, the Carnegie Hero Fund has privately searched for everyday heroes.</div>
+			<div class="card-body">
+				<img src="https://static.clubs.nfl.com/image/private/t_editorial_landscape_3_4_desktop/f_auto/packers/r0fcr6hlbnwegx9eopea.jpg" class="img-fluid" alt="Responsive image" style="display: block; width:10em; float:left; border-radius:20%">
+				<h5 style="float:left; padding:1%; width:80%">For over 100 years, the Carnegie Hero Fund has privately searched for everyday heroes.For over 100 years, the Carnegie Hero Fund has privately searched for everyday heroes. years, the Car</h5>
 			</div>
+			</div> -->
 
 		</div>
 	</div>
 
 </body>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-	<script src="/assets/js/articles.js"></script>
+	<script src="/assets/js/savedArticles.js"></script>
 
 </html>
