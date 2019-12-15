@@ -1,6 +1,6 @@
 $.ajax({
   method: "GET",
-  url: "/articles/"
+  url: "/savedArticles/"
 }).then(function(data) {
   console.log(data);
     for (i=0; i<20; i++){
@@ -9,7 +9,8 @@ $.ajax({
       var cardH3 = $("<h3>")
       var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
       var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%")
-      cardH3.append(articleOne).append(articleTwo)
+      var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Comment`).attr("style","margin-left:2%")
+      cardH3.append(articleOne).append(articleTwo).append(articleThree)
       cardHead.append(cardH3)
       var cardBody = $("<div>").addClass("card-body")
       var cardImage = $("<img>").addClass("img-fluid").attr("src", data[i].image).attr("alt", "Responsive Image").attr("style","display: block; width:10em; float:left; border-radius:20%")
