@@ -49,7 +49,7 @@ app.get("/", function(req, res) {
 // Routes
 
 // A GET route for scraping the Packers website
-app.get("/scrape", function(req, res) {
+app.get("/api/scrape", function(req, res) {
   // First, we grab the body of the html with axios
   axios.get("https://www.packers.com/news/all-news").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -94,7 +94,7 @@ app.get("/scrape", function(req, res) {
 });
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+app.get("/api/articles", function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find({})
     .then(function(dbArticle) {
@@ -107,7 +107,35 @@ app.get("/articles", function(req, res) {
     });
 });
 
-app.get("/clearArticles", function(req, res){
+app.get("/api/savedArticles", function(req, res) {
+  db.SaveArticle.find({})
+    .then(function(savedArticles) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(savedArticles);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.post("/api/savedArticles", function(req, res) {
+  var newSave = req.body;
+  console.log(newSave)
+
+  db.SaveArticle.create(newSave)
+  .then(function(saveArticle) {
+  // View the added result in the console
+  console.log(saveArticle);
+  })
+  .catch(function(err) {
+    // If an error occurred, log it
+    console.log(err);
+  });
+  res.send(newSave)
+});
+
+app.get("/api/clearArticles", function(req, res){
   console.log("clearing articles")
   db.Article.deleteMany({}).then(
     function (err) {
@@ -116,6 +144,43 @@ app.get("/clearArticles", function(req, res){
   });
   res.send("All Articles Cleared");
 })
+
+app.get("/api/clearSavedArticles", function(req, res){
+  console.log("clearing articles")
+  db.SaveArticle.deleteMany({}).then(
+    function (err) {
+    if (err) return err;
+    // deleted at most one tank document
+  });
+  res.send("All Saved Articles Cleared");
+})
+
+app.get("/api/savedArticles/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.SaveArticle.deleteMany({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .then(function() {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      console.log("deleting this article")
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.post("/api/savedArticles", function(req, res){
+  console.log(req).body
+  // let deleteID = req.body
+  // console.log("delete this!" + deleteID)
+
+  // db.SaveArticle.deleteOne({_id: deleteID}).then(
+  //   function (err) {
+  //   if (err) return err;
+  // });
+  // res.send(`Saved article with ID of ${deleteID} removed`);
+})
+
 
 // Start the server
 app.listen(PORT, function() {

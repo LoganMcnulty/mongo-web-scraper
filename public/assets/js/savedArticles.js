@@ -1,6 +1,6 @@
 $.ajax({
   method: "GET",
-  url: "/savedArticles/"
+  url: "/api/savedArticles"
 }).then(function(data) {
   console.log(data);
     for (i=0; i<20; i++){
@@ -8,7 +8,7 @@ $.ajax({
       var cardHead = $("<div>").addClass("card-header")
       var cardH3 = $("<h3>")
       var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
-      var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%")
+      var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%").attr("data-_id",data[i]._id)
       var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Comment`).attr("style","margin-left:2%")
       cardH3.append(articleOne).append(articleTwo).append(articleThree)
       cardHead.append(cardH3)
@@ -19,28 +19,29 @@ $.ajax({
       articleDiv.append(cardHead).append(cardBody)
       $("#articleContainer").append(articleDiv)
   }
-
-
-  // })
-    
-    // // The title of the article
-    // $("#notes").append("<h2>" + data.title + "</h2>");
-    // // An input to enter a new title
-    // $("#notes").append("<input id='titleinput' name='title' >");
-    // // A textarea to add a new note body
-    // $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-    // // A button to submit a new note, with the id of the article saved to it
-    // $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
-    // $("#ariclecontainer").append(articleDiv)
-
-    // // If there's a note in the article
-    // if (data.note) {
-    //   // Place the title of the note in the title input
-    //   $("#titleinput").val(data.note.title);
-    //   // Place the body of the note in the body textarea
-    //   $("#bodyinput").val(data.note.body);
 })
+
+$(document).on("click", "#dangerButtonClear", function() {
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "get",
+    url: "/api/clearSavedArticles",
+  })
+    // With that done
+    .then(function() {
+      setTimeout("location.reload(true);",2000);
+      alert("Clearing All Saved Articles")
+    });
+});
+
+$(document).on("click", "#deleteSavedArticle", function() {
+  var deleteID = $(this).attr("data-_id");
+  console.log(deleteID)
+  $.get("/api/savedArticles/:" + deleteID,
+    function(err) {
+      console.log("deleting saved article")
+    });
+});
 
 
   // Whenever someone clicks a p tag
