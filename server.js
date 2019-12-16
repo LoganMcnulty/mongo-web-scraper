@@ -107,6 +107,7 @@ app.get("/api/articles", function(req, res) {
     });
 });
 
+// route for getting all saved articles
 app.get("/api/savedArticles", function(req, res) {
   db.SaveArticle.find({})
     .then(function(savedArticles) {
@@ -119,6 +120,7 @@ app.get("/api/savedArticles", function(req, res) {
     });
 });
 
+// route for posting to Saved Articles from All Articles
 app.post("/api/savedArticles", function(req, res) {
   var newSave = req.body;
   console.log(newSave)
@@ -135,6 +137,20 @@ app.post("/api/savedArticles", function(req, res) {
   res.send(newSave)
 });
 
+// route for deleting a specified saved article
+app.get("/api/savedArticles/delete/:id", function(req, res) {
+
+  var newDelete = req.params.id;
+
+  console.log(newDelete)
+
+  db.SaveArticle.deleteOne({ _id: newDelete }, function (err) {
+    if (err) return handleError(err);
+    // deleted at most one tank document
+  });
+});
+
+//route for clearing all articles from home page
 app.get("/api/clearArticles", function(req, res){
   console.log("clearing articles")
   db.Article.deleteMany({}).then(
@@ -145,6 +161,7 @@ app.get("/api/clearArticles", function(req, res){
   res.send("All Articles Cleared");
 })
 
+// route for clearing all saved articles from "saved articles"
 app.get("/api/clearSavedArticles", function(req, res){
   console.log("clearing articles")
   db.SaveArticle.deleteMany({}).then(
@@ -154,33 +171,6 @@ app.get("/api/clearSavedArticles", function(req, res){
   });
   res.send("All Saved Articles Cleared");
 })
-
-app.get("/api/savedArticles/:id", function(req, res) {
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.SaveArticle.deleteMany({ _id: req.params.id })
-    // ..and populate all of the notes associated with it
-    .then(function() {
-      // If we were able to successfully find an Article with the given id, send it back to the client
-      console.log("deleting this article")
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
-});
-
-app.post("/api/savedArticles", function(req, res){
-  console.log(req).body
-  // let deleteID = req.body
-  // console.log("delete this!" + deleteID)
-
-  // db.SaveArticle.deleteOne({_id: deleteID}).then(
-  //   function (err) {
-  //   if (err) return err;
-  // });
-  // res.send(`Saved article with ID of ${deleteID} removed`);
-})
-
 
 // Start the server
 app.listen(PORT, function() {

@@ -19,22 +19,21 @@ $.ajax({
     $("#articleContainer").append(articleDiv)
   } 
 })
-  
+
+// on click function for pulling new articles
 $(document).on("click", "#dangerButtonNew", function() {
-  // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "get",
     url: "/api/scrape",
   })
-    // With that done
     .then(function(data) {
-      // Log the response
       console.log(data);
-      setTimeout("location.reload(true);",2000);
       alert("Pulling the latest News")
+      setTimeout("location.reload(true);",2000);
     });
 });
 
+// on click function for removing all articles
 $(document).on("click", "#dangerButtonClear", function() {
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
@@ -48,15 +47,14 @@ $(document).on("click", "#dangerButtonClear", function() {
     });
 });
 
+// on click function for saving an article
 $(document).on("click", "#saveArticle", function() {
+  $(this).parent().parent().parent().hide()
   var newSave = {};
   newSave.title = $(this).attr("title");
   newSave.image = $(this).attr("image");
   newSave.summary = $(this).attr("summary");
   newSave.link = $(this).attr("link");
-
-  var dataID = $(this).attr("data-_id");
-
 
   $.post("/api/savedArticles", newSave,
     function(err) {
