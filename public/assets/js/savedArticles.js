@@ -13,7 +13,7 @@ $.ajax({
       var cardH3 = $("<h3>")
       var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
       var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%").attr("data-_id",data[i]._id)
-      var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Add/View Comments`).attr("style","margin-left:2%")
+      var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Add/Modify Comment`).attr("style","margin-left:2%")
       cardH3.append(articleOne).append(articleTwo).append(articleThree)
       cardHead.append(cardH3)
       var cardBody = $("<div>").addClass("card-body")
@@ -49,28 +49,41 @@ $(document).on("click", "#deleteSavedArticle", function() {
     });
 });
 
+// function for showing and populating comment section for article
 $(document).on("click", "#commentArticle", function() {
   $("#commentSection").show()
-
+  $("#commentContainer").empty()
   var commentID = $(this).parent().parent().parent().attr("data-_id")
-  console.log(commentID)
-    $.get("/api/savedArticles/" + commentID,
-    function(err) {
-      if (err) {console.log(err)}
-      console.log("fetching comments")
-    });
-    
+  $("#addComment").attr("data-_id", commentID)
+
+    $.ajax({
+      method: "GET",
+      url: "/api/savedArticles/" + commentID
+    }).then(function(data){
+      console.log("Fetching Comments")
+      console.log(data)
+      $("#commentTitle").text(data[0].title).attr("data-_id",data._id)
+      $("#commentContainer").html(data[0].Comment.body)
+    })
 });
 
 $(document).on("click", "#addComment", function() {
   var comment = $("#commentTextArea").val();
-  console.log(comment)
-  // $.get("/api/savedArticles/delete/" + deleteID,
-  //   function(err) {
-  //     if (err) {console.log(err)}
-  //     console.log("deleting saved article")
-  //   });
-  $("#commentTextArea").val("")
-  var commentDiv = $("<li>").addClass("list-group-item").text(comment)
-  $("#existingComments").append(commentDiv)
+  var addCommentID = $(this).attr("data-_id")
+  console.log(addCommentID)
+  $("#commentContainer").html($("#commentTextArea").val())
+  $.ajax({
+    method: "POST",
+    url: "/api/savedArticles/" + addCommentID,
+    data: {
+      body: comment
+    }
+  })
+    // With that done
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      // Empty the notes section
+      $("#commentTextArea").val("")
+    });
 });
