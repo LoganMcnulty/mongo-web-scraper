@@ -1,4 +1,7 @@
 // AJAX request for getting all saved articles, and populating the page with them
+
+$("#commentSection").hide()
+
 $.ajax({
   method: "GET",
   url: "/api/savedArticles"
@@ -10,7 +13,7 @@ $.ajax({
       var cardH3 = $("<h3>")
       var articleOne = $("<a>").addClass("article-link").attr("target","_blank").attr("rel","noopener noreferrer").attr("href", data[i].link).text(data[i].title) 
       var articleTwo = $("<a>").addClass("btn btn-success delete").attr("id","deleteSavedArticle").text(`Delete ✗`).attr("style","margin-left:2%").attr("data-_id",data[i]._id)
-      var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Comment`).attr("style","margin-left:2%")
+      var articleThree = $("<a>").addClass("btn btn-success").attr("id","commentArticle").text(`Add/View Comments`).attr("style","margin-left:2%")
       cardH3.append(articleOne).append(articleTwo).append(articleThree)
       cardHead.append(cardH3)
       var cardBody = $("<div>").addClass("card-body")
@@ -44,4 +47,30 @@ $(document).on("click", "#deleteSavedArticle", function() {
       if (err) {console.log(err)}
       console.log("deleting saved article")
     });
+});
+
+$(document).on("click", "#commentArticle", function() {
+  $("#commentSection").show()
+
+  var commentID = $(this).parent().parent().parent().attr("data-_id")
+  console.log(commentID)
+    $.get("/api/savedArticles/" + commentID,
+    function(err) {
+      if (err) {console.log(err)}
+      console.log("fetching comments")
+    });
+    
+});
+
+$(document).on("click", "#addComment", function() {
+  var comment = $("#commentTextArea").val();
+  console.log(comment)
+  // $.get("/api/savedArticles/delete/" + deleteID,
+  //   function(err) {
+  //     if (err) {console.log(err)}
+  //     console.log("deleting saved article")
+  //   });
+  $("#commentTextArea").val("")
+  var commentDiv = $("<li>").addClass("list-group-item").text(comment)
+  $("#existingComments").append(commentDiv)
 });
